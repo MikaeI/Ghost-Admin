@@ -1,4 +1,4 @@
-<header class="gh-nav-menu">
+<!-- <header class="gh-nav-menu">
     <div class="gh-nav-menu-details">
         <div class="gh-nav-menu-icon" style={{iconStyle}}></div>
         <div class="gh-nav-menu-details-blog">{{config.blogTitle}}</div>
@@ -6,21 +6,31 @@
     <div class="gh-nav-menu-search">
         <button class="gh-nav-btn-search" {{action "toggleSearchModal"}} title="Search site (Ctrl/⌘ + K)"><span>{{svg-jar "search" class="w4 h4 fill-midgrey"}}</span></button>
     </div>
-</header>
+</header> -->
 
-{{#if showSearchModal}}
+<!-- {{#if showSearchModal}}
     {{gh-fullscreen-modal "search"
         close=(action "toggleSearchModal")
         modifier="action wide"}}
-{{/if}}
+{{/if}} -->
 
 <section class="gh-nav-body">
     <div class="gh-nav-top">
         <ul class="gh-nav-list gh-nav-main">
+            <!-- <li class="relative">
+                <span {{action "transitionToOrRefreshSite" on="click"}}>
+                    {{#link-to "site" data-test-nav="site" current-when=isOnSite preventDefault=false}}
+                        {{svg-jar "calendar"}} Kalender
+                    {{/link-to}}
+                </span>
+                <a href="{{config.blogUrl}}/" class="gh-secondary-action" title="Open site in new tab" target="_blank">
+                    <span>{{svg-jar "expand"}}</span>
+                </a>
+            </li> -->
             <li class="relative">
                 <span {{action "transitionToOrRefreshSite" on="click"}}>
                     {{#link-to "site" data-test-nav="site" current-when=isOnSite preventDefault=false}}
-                        {{svg-jar "house"}} View site
+                        {{svg-jar "house"}} Se på siden
                     {{/link-to}}
                 </span>
                 <a href="{{config.blogUrl}}/" class="gh-secondary-action" title="Open site in new tab" target="_blank">
@@ -29,41 +39,43 @@
             </li>
         </ul>
         <ul class="gh-nav-list gh-nav-manage">
-            <li class="gh-nav-list-h">Manage</li>
+            <!-- <li class="gh-nav-list-h">Innholdsstyring</li> -->
             <li class="gh-nav-list-new relative">
                 {{!-- clicking the Content link whilst on the content screen should reset the filter --}}
                 {{#if (eq router.currentRouteName "posts")}}
-                    {{#link-to "posts" (query-params type=null author=null tag=null order=null) classNames="active" data-test-nav="posts"}}{{svg-jar "content"}}Posts{{/link-to}}
+                    {{#link-to "posts" (query-params type=null author=null tag=null order=null) classNames="active" data-test-nav="posts"}}{{svg-jar "content"}}Innhold{{/link-to}}
                 {{else}}
-                    {{#link-to "posts" data-test-nav="posts"}}{{svg-jar "content"}}Posts{{/link-to}}
+                    {{#link-to "posts" data-test-nav="posts"}}{{svg-jar "content"}}Innhold{{/link-to}}
                 {{/if}}
-                {{#link-to "editor.new" "post" classNames="gh-secondary-action gh-nav-new-post" alt="New story" data-test-nav="new-story"}}<span>{{svg-jar "add-stroke"}}</span>{{/link-to}}
             </li>
-            <li>
+            <!-- <li>
                 {{!-- clicking the Content link whilst on the content screen should reset the filter --}}
                 {{#if (eq router.currentRouteName "pages")}}
-                    {{#link-to "pages" (query-params type=null author=null tag=null order=null) classNames="active" data-test-nav="pages"}}{{svg-jar "page"}}Pages{{/link-to}}
+                    {{#link-to "pages" (query-params type=null author=null tag=null order=null) classNames="active" data-test-nav="pages"}}{{svg-jar "page"}}Sider{{/link-to}}
                 {{else}}
-                    {{#link-to "pages" data-test-nav="pages"}}{{svg-jar "page"}}Pages{{/link-to}}
+                    {{#link-to "pages" data-test-nav="pages"}}{{svg-jar "page"}}Sider{{/link-to}}
                 {{/if}}
-            </li>
+            </li> -->
             {{#if (gh-user-can-admin session.user)}}
-                <li>{{#link-to "tags" data-test-nav="tags"}}{{svg-jar "tag"}}Tags{{/link-to}}</li>
+                <li>{{#link-to "tags" data-test-nav="tags"}}{{svg-jar "tag"}}Typer{{/link-to}}</li>
             {{/if}}
             {{#if (and feature.members (gh-user-can-admin session.user))}}
                 <li>
                     {{#link-to "members" current-when="members member" data-test-nav="members"}}{{svg-jar "members"}}Members{{/link-to}}
                 </li>
             {{/if}}
-            <li>{{#link-to "staff" data-test-nav="staff"}}{{svg-jar "staff"}}Staff{{/link-to}}</li>
+            <li>{{#link-to "staff" data-test-nav="staff"}}{{svg-jar "staff"}}Redaktører{{/link-to}}</li>
             {{#if (and feature.subscribers (gh-user-can-admin session.user))}}
                 <li>{{#link-to "subscribers" data-test-nav="subscribers"}}{{svg-jar "email"}}Subscribers{{/link-to}}</li>
             {{/if}}
+            {{#if (gh-user-can-admin session.user)}}
+                    <li>{{#link-to "settings.general" data-test-nav="settings"}}{{svg-jar "settings"}}Statisk innhold{{/link-to}}</li>
+            {{/if}}
         </ul>
-        {{#if (gh-user-can-admin session.user)}}
+        <!-- {{#if (gh-user-can-admin session.user)}}
             <ul class="gh-nav-list gh-nav-settings">
-                <li class="gh-nav-list-h">Settings</li>
-                <li>{{#link-to "settings.general" data-test-nav="settings"}}{{svg-jar "settings"}}General{{/link-to}}</li>
+                <li class="gh-nav-list-h">Innstillinger</li>
+                <li>{{#link-to "settings.general" data-test-nav="settings"}}{{svg-jar "settings"}}Statisk innhold{{/link-to}}</li>
                 <li>{{#link-to "settings.design" data-test-nav="design"}}{{svg-jar "paintbrush"}}Design{{/link-to}}</li>
                 <li>{{#link-to "settings.code-injection" data-test-nav="code-injection"}}{{svg-jar "brackets"}}Code injection{{/link-to}}</li>
                 <li>{{#link-to "settings.integrations" current-when=isIntegrationRoute data-test-nav="integrations"}}{{svg-jar "modules"}}Integrations{{/link-to}}</li>
@@ -74,7 +86,7 @@
                     {{#link-to "settings.labs" data-test-nav="labs"}}{{svg-jar "labs"}}Labs{{/link-to}}
                 </li>
             </ul>
-        {{/if}}
+        {{/if}} -->
 
         {{#if showMenuExtension}}
             <ul class="gh-nav-list gh-nav-settings">
@@ -112,7 +124,7 @@
             {{#dropdown.content class="gh-nav-menu-dropdown"}}
                 <ul class="dropdown-menu dropdown-triangle-top" role="menu"
                     {{action dropdown.actions.close on="click" preventDefault=false}}>
-                    <li role="presentation">
+                    <!-- <li role="presentation">
                         {{#link-to "about" classNames="dropdown-item" role="menuitem" tabindex="-1" data-test-nav="about"}}
                             {{svg-jar "store"}} About Ghost
                         {{/link-to}}
@@ -124,32 +136,32 @@
                                 <div class="flex-grow-1 flex justify-end"><span class="dib w2 h2 top-0 right-0 bg-blue br-100"></span></div>
                             {{/if}}
                         </button>
-                    </li>
-                    <li class="divider"></li>
+                    </li> -->
+                    <!-- <li class="divider"></li> -->
                     <li role="presentation">
                         {{#link-to "staff.user" session.user.slug classNames="dropdown-item" role="menuitem" tabindex="-1" data-test-nav="user-profile"}}
-                            {{svg-jar "user-circle"}} Your Profile
+                            {{svg-jar "user-circle"}} Min profil
                         {{/link-to}}
                     </li>
-                    <li role="presentation">
+                    <!-- <li role="presentation">
                         <a class="dropdown-item" role="menuitem" tabindex="-1" href="https://ghost.org/docs/" target="_blank">
                             {{svg-jar "ambulance"}} Support Center
                         </a>
-                    </li>
-                    <li role="presentation">
+                    </li> -->
+                    <!-- <li role="presentation">
                         <a class="dropdown-item" role="menuitem" tabindex="-1" target="_blank"
                             href="https://twitter.com/intent/tweet?text=%40Ghost+Hi%21+Can+you+help+me+with+&related=Ghost"
                             onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;"
                         >
                             {{svg-jar "twitter"}} Tweet @Ghost!
                         </a>
-                    </li>
-                    <li role="presentation">
+                    </li> -->
+                    <!-- <li role="presentation">
                         <a class="dropdown-item" role="menuitem" tabindex="-1" href="https://ghost.org/faq/using-ghost/" target="_blank">
                             {{svg-jar "book-open"}} How to Use Ghost
                         </a>
-                    </li>
-                    <li class="divider"></li>
+                    </li> -->
+                    <!-- <li class="divider"></li>
 
                     {{#if showDropdownExtension}}
                         {{#each config.clientExtensions.dropdown.items as |menuItem| }}
@@ -163,11 +175,11 @@
                                 </li>
                             {{/if}}
                         {{/each}}
-                    {{/if}}
+                    {{/if}} -->
 
                     <li role="presentation">
                         {{#link-to "signout" classNames="dropdown-item user-menu-signout" role="menuitem" tabindex="-1"}}
-                            {{svg-jar "signout"}} Sign Out
+                            {{svg-jar "signout"}} Logg ut
                         {{/link-to}}
                     </li>
                 </ul>
